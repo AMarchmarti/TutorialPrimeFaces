@@ -86,4 +86,16 @@ public class PersonaDAO extends DAO{
             this.closed();
         }
     }
+    public void eliminar(Persona person) throws Exception {
+        try{
+            this.conect();
+            PreparedStatement prepare = this.getConnection().prepareStatement("DELETE FROM persona  WHERE CODIGO = ?");
+            prepare.setInt(1,person.getCode());
+            prepare.executeUpdate();
+        }catch (Exception e){
+            throw e;
+        }finally {
+            this.closed();
+        }
+    }
 }

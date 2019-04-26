@@ -13,6 +13,15 @@ public class PersonaBean {
 
     private Persona person = new Persona();
     private List<Persona> listaPersona = null;
+    private String action;
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
+    }
 
     public List<Persona> getListaPersona() {
         return listaPersona;
@@ -30,11 +39,28 @@ public class PersonaBean {
         this.person = person;
     }
 
-    public void registerPerson() throws Exception {
+    public void operar() throws Exception {
+        if ("Registrar".equals(getAction())) {
+            registerPerson();
+            limpiar();
+        } else if ("Modificar".equals(getAction())) {
+            modifyPerson();
+            limpiar();
+        }
+    }
+
+    public void limpiar(){
+        getPerson().setCode(0);
+        getPerson().setName("");
+        getPerson().setSex("");
+    }
+
+    private void registerPerson() throws Exception {
         PersonaDAO dao = null;
         try{
             dao = new PersonaDAO();
             dao.registerPerson(getPerson());
+            listarPersona();
         }catch (Exception e){
             throw e;
         }
@@ -57,19 +83,31 @@ public class PersonaBean {
             dao = new PersonaDAO();
             temp = dao.leerID(person);
             if(temp != null){
-                this.person = temp;
+                setPerson(temp);
+                setAction("Modificar");
             }
         }catch (Exception e){
             throw e;
         }
     }
 
-    public void modifyPerson() throws Exception {
+    private void modifyPerson() throws Exception {
         PersonaDAO dao = null;
         try{
             dao = new PersonaDAO();
             dao.modifyPerson(getPerson());
             this.listarPersona();
+        }catch (Exception e){
+            throw e;
+        }
+    }
+
+    public void eliminarID(Persona person) throws Exception {
+        PersonaDAO dao = null;
+        try{
+            dao = new PersonaDAO();
+            dao.eliminar(person);
+            listarPersona();
         }catch (Exception e){
             throw e;
         }
