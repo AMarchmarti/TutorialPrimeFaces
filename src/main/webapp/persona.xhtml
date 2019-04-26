@@ -10,10 +10,9 @@
 <body>
     <ui:composition template="WEB-INF/templates/plantilla.xhtml">
         <ui:define name="content">
+            <f:event type="preRenderView" listener="#{personaBean.listarPersona}"></f:event>
             <h:form id="frm">
                 <p:commandButton value="Nuevo" actionListener="#{personaBean.setAction('Registrar')}" oncomplete="PF('dlg').show()" update="dlgDatos" />
-                <p:commandButton value="Listar" actionListener="#{personaBean.listarPersona}" update="data"/>
-
                 <p:dataTable id="data" value="#{personaBean.getListaPersona()}" var="persona">
                     <p:column headerText="Nombre">
                         <p:outputLabel value="#{persona.name}"/>
