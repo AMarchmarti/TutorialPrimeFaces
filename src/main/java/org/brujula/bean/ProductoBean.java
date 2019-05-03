@@ -5,6 +5,7 @@ import org.brujula.model.Producto;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import java.util.List;
 
 @ManagedBean
@@ -49,6 +50,10 @@ public class ProductoBean {
         }
     }
 
+    public Boolean isPostBack(){
+        return FacesContext.getCurrentInstance().isPostback();
+    }
+
     public void limpiar(){
         getProducto().setCodeProduct(0);
         getProducto().setNameProduct("");
@@ -69,8 +74,9 @@ public class ProductoBean {
     public void listarProducto() throws Exception {
         ProductoDAO dao = null;
         try{
-            dao = new ProductoDAO();
-            setListaProducto(dao.listaProducto());
+            if(isPostBack() == false){
+                dao = new ProductoDAO();
+                setListaProducto(dao.listaProducto());}
         }catch (Exception e){
             throw e;
         }

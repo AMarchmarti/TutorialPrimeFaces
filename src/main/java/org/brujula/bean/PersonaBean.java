@@ -5,6 +5,7 @@ import org.brujula.model.Persona;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import java.util.List;
 
 @ManagedBean
@@ -39,6 +40,10 @@ public class PersonaBean {
         this.person = person;
     }
 
+    public Boolean isPostBack(){
+        return FacesContext.getCurrentInstance().isPostback();
+    }
+
     public void operar() throws Exception {
         if ("Registrar".equals(getAction())) {
             registerPerson();
@@ -69,8 +74,9 @@ public class PersonaBean {
     public void listarPersona() throws Exception {
         PersonaDAO dao = null;
         try{
-            dao = new PersonaDAO();
-            setListaPersona(dao.listPerson());
+            if(isPostBack() == false){
+                dao = new PersonaDAO();
+                setListaPersona(dao.listPerson());}
         }catch (Exception e){
             throw e;
         }

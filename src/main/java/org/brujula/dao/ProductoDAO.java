@@ -30,7 +30,7 @@ public class ProductoDAO extends DAO{
         ResultSet rs;
         try{
             this.conect();
-            PreparedStatement prepare = this.getConnection().prepareStatement("SELECT codigo, nombre, sexo FROM persona");
+            PreparedStatement prepare = this.getConnection().prepareStatement("SELECT codigo, nombre, precio FROM producto");
             rs = prepare.executeQuery();
             listaPro = new ArrayList<Producto>();
             while (rs.next()){

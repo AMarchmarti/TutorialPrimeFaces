@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:body>
+    <ui:composition template="WEB-INF/templates/plantilla.xhtml">
+        <ui:define name="content">
+
+            <f:event type="preRenderView" listener="#{personaBean.listarPersona}"></f:event>
+            <f:event type="preRenderView" listener="#{productoBean.listarProducto}"></f:event>
+            <h:form>
+                <p:outputLabel value="Persona"/>
+                <p:selectOneMenu value="#{ventaBean.venta.codePerson}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                    <f:selectItems value="#{personaBean.listaPersona}" var="per" itemLabel="#{per.name}" itemValue="#{per}"/>
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Producto"/>
+                <p:selectOneMenu value="#{ventaBean.producto}" converter="omnifaces.SelectItemsConverter">
+                    <f:selectItem noSelectionOption="true" itemLabel="Seleccione" itemValue="#{null}"/>
+                    <f:selectItems value="#{productoBean.listaProducto}" var="pro" itemLabel="#{pro.nameProduct}" itemValue="#{pro}"/>
+                </p:selectOneMenu>
+
+                <p:outputLabel value="Cantidad"/>
+                <p:inputText value="#{ventaBean.cantidad}"/>
+                <p:commandButton value="Agregar" actionListener="#{ventaBean.agregar}" update="detalle"/>
+
+                <p:dataTable id="detalle" value="#{ventaBean.lista}" var="det">
+                    <p:column headerText="Nombre Producto">
+                        #{det.codeProduct.nameProduct}
+                    </p:column>
+
+
+                    <p:column headerText="Precio">
+                        #{det.codeProduct.price}
+                    </p:column>
+
+
+                    <p:column headerText="Cantidad">
+                        #{det.quantity}
+                    </p:column>
+
+                </p:dataTable>
+
+                <p:commandButton value="Registrar"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>
