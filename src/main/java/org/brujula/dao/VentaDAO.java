@@ -4,9 +4,9 @@ package org.brujula.dao;
 import org.brujula.model.DetalleVenta;
 import org.brujula.model.Venta;
 
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Date;
 import java.util.List;
 
 public class VentaDAO extends DAO {
@@ -17,7 +17,7 @@ public class VentaDAO extends DAO {
             this.getConexion().setAutoCommit(false);//Para saber cuando hacemos efectivo que el bloque se realice.
 
             PreparedStatement prepare = this.getConexion().prepareStatement("INSERT INTO venta(fecha, codpersona, monto) values (?,?,?)");
-            prepare.setDate(1, (Date) venta.getDate());
+            prepare.setDate(1, venta.getDate());
             prepare.setInt(2, venta.getCodePerson().getCode());
             prepare.setDouble(3, venta.getMonto());
             prepare.executeUpdate();
