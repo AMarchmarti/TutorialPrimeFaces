@@ -32,23 +32,5 @@ public class Persona {
         this.sex = sex;
     }
 
-    @Override
-    public String toString() {
-        return "Persona{" +
-                "code=" + code +
-                '}';
-    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Persona persona = (Persona) o;
-        return code.equals(persona.code);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(code);
-    }
 }

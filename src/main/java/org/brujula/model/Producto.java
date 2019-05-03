@@ -32,23 +32,4 @@ public class Producto {
         this.price = price;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Producto producto = (Producto) o;
-        return codeProduct.equals(producto.codeProduct);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(codeProduct);
-    }
-
-    @Override
-    public String toString() {
-        return "Producto{" +
-                "codeProduct=" + codeProduct +
-                '}';
-    }
 }

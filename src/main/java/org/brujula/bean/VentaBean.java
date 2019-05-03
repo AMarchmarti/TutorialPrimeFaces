@@ -7,13 +7,14 @@ import org.brujula.model.Venta;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Calendar;
+
 import java.util.List;
 
 @ManagedBean
 @ViewScoped
-public class VentaBean {
+public class VentaBean implements Serializable {
 
     private Venta venta = new Venta();
     private Producto producto = new Producto();

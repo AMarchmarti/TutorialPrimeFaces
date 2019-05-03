@@ -6,11 +6,12 @@ import org.brujula.model.Producto;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import java.io.Serializable;
 import java.util.List;
 
 @ManagedBean
 @ViewScoped
-public class ProductoBean {
+public class ProductoBean implements Serializable {
 
     private Producto producto = new Producto();
     private List<Producto> listaProducto = null;

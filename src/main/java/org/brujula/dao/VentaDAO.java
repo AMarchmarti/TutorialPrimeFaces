@@ -6,7 +6,6 @@ import org.brujula.model.Venta;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Date;
 import java.util.List;
 
 public class VentaDAO extends DAO {
