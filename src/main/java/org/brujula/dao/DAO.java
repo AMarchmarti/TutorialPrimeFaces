@@ -6,20 +6,20 @@ import java.sql.SQLException;
 
 public class DAO {
 
-    private Connection connection;
+    private Connection conexion;
 
-    public Connection getConnection() {
-        return connection;
+    public Connection getConexion() {
+        return conexion;
     }
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
+    public void setConexion(Connection conexion) {
+        this.conexion = conexion;
     }
 
     public void conect()throws Exception{
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            setConnection(DriverManager.getConnection("jdbc:mysql://localhost:3306/primefaces_tuto" +
+            setConexion(DriverManager.getConnection("jdbc:mysql://localhost:3306/primefaces_tuto" +
                     "?user=root&password=root&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC"));
         }catch (SQLException e){
              e.printStackTrace();
@@ -28,8 +28,8 @@ public class DAO {
 
     public void closed() throws Exception {
         try{
-            if ((getConnection() != null) &&(!getConnection().isClosed())){
-                getConnection().close();
+            if ((getConexion() != null) &&(!getConexion().isClosed())){
+                getConexion().close();
             }
         }catch (SQLException e){
             e.printStackTrace();

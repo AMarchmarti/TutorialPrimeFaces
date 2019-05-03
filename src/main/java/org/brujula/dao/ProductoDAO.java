@@ -13,7 +13,7 @@ public class ProductoDAO extends DAO{
     public void registerProducto(Producto producto) throws Exception {
         try{
             this.conect();
-            PreparedStatement prepare = this.getConnection().prepareStatement("INSERT INTO producto(nombre,precio) values (?,?)");
+            PreparedStatement prepare = this.getConexion().prepareStatement("INSERT INTO producto(nombre,precio) values (?,?)");
             prepare.setString(1, producto.getNameProduct());
             prepare.setDouble(2,producto.getPrice());
             prepare.executeUpdate();
@@ -30,7 +30,7 @@ public class ProductoDAO extends DAO{
         ResultSet rs;
         try{
             this.conect();
-            PreparedStatement prepare = this.getConnection().prepareStatement("SELECT codigo, nombre, precio FROM producto");
+            PreparedStatement prepare = this.getConexion().prepareStatement("SELECT codigo, nombre, precio FROM producto");
             rs = prepare.executeQuery();
             listaPro = new ArrayList<Producto>();
             while (rs.next()){
@@ -55,7 +55,7 @@ public class ProductoDAO extends DAO{
         ResultSet result;
         try{
             this.conect();
-            PreparedStatement prepare = this.getConnection().prepareStatement("SELECT codigo, nombre, precio FROM producto WHERE codigo = ?");
+            PreparedStatement prepare = this.getConexion().prepareStatement("SELECT codigo, nombre, precio FROM producto WHERE codigo = ?");
             prepare.setInt(1,pro.getCodeProduct());
             result = prepare.executeQuery();
             while (result.next()){
@@ -75,7 +75,7 @@ public class ProductoDAO extends DAO{
     public void modifyProduct(Producto person) throws Exception {
         try{
             this.conect();
-            PreparedStatement prepare = this.getConnection().prepareStatement("UPDATE producto SET nombre = ?, precio = ? WHERE CODIGO = ?");
+            PreparedStatement prepare = this.getConexion().prepareStatement("UPDATE producto SET nombre = ?, precio = ? WHERE CODIGO = ?");
             prepare.setString(1, person.getNameProduct());
             prepare.setDouble(2,person.getPrice());
             prepare.setInt(3,person.getCodeProduct());
@@ -89,7 +89,7 @@ public class ProductoDAO extends DAO{
     public void eliminar(Producto producto) throws Exception {
         try{
             this.conect();
-            PreparedStatement prepare = this.getConnection().prepareStatement("DELETE FROM producto WHERE CODIGO = ?");
+            PreparedStatement prepare = this.getConexion().prepareStatement("DELETE FROM producto WHERE CODIGO = ?");
             prepare.setInt(1,producto.getCodeProduct());
             prepare.executeUpdate();
         }catch (Exception e){

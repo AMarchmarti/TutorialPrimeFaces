@@ -13,7 +13,7 @@ public class PersonaDAO extends DAO{
     public void registerPerson(Persona person) throws Exception {
         try{
             this.conect();
-            PreparedStatement prepare = this.getConnection().prepareStatement("INSERT INTO persona(nombre,sexo) values (?,?)");
+            PreparedStatement prepare = this.getConexion().prepareStatement("INSERT INTO persona(nombre,sexo) values (?,?)");
             prepare.setString(1, person.getName());
             prepare.setString(2,person.getSex());
             prepare.executeUpdate();
@@ -30,7 +30,7 @@ public class PersonaDAO extends DAO{
         ResultSet rs;
         try{
             this.conect();
-            PreparedStatement prepare = this.getConnection().prepareStatement("SELECT codigo, nombre, sexo FROM persona");
+            PreparedStatement prepare = this.getConexion().prepareStatement("SELECT codigo, nombre, sexo FROM persona");
             rs = prepare.executeQuery();
             listPer = new ArrayList<Persona>();
             while (rs.next()){
@@ -55,7 +55,7 @@ public class PersonaDAO extends DAO{
         ResultSet result;
         try{
             this.conect();
-            PreparedStatement prepare = this.getConnection().prepareStatement("SELECT codigo, nombre, sexo FROM persona WHERE codigo = ?");
+            PreparedStatement prepare = this.getConexion().prepareStatement("SELECT codigo, nombre, sexo FROM persona WHERE codigo = ?");
             prepare.setInt(1,persona.getCode());
             result = prepare.executeQuery();
             while (result.next()){
@@ -75,7 +75,7 @@ public class PersonaDAO extends DAO{
     public void modifyPerson(Persona person) throws Exception {
         try{
             this.conect();
-            PreparedStatement prepare = this.getConnection().prepareStatement("UPDATE persona SET nombre = ?, sexo = ? WHERE CODIGO = ?");
+            PreparedStatement prepare = this.getConexion().prepareStatement("UPDATE persona SET nombre = ?, sexo = ? WHERE CODIGO = ?");
             prepare.setString(1, person.getName());
             prepare.setString(2,person.getSex());
             prepare.setInt(3,person.getCode());
@@ -89,7 +89,7 @@ public class PersonaDAO extends DAO{
     public void eliminar(Persona person) throws Exception {
         try{
             this.conect();
-            PreparedStatement prepare = this.getConnection().prepareStatement("DELETE FROM persona  WHERE CODIGO = ?");
+            PreparedStatement prepare = this.getConexion().prepareStatement("DELETE FROM persona  WHERE CODIGO = ?");
             prepare.setInt(1,person.getCode());
             prepare.executeUpdate();
         }catch (Exception e){

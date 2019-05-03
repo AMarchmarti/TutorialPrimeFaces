@@ -14,26 +14,25 @@ public class VentaDAO extends DAO {
     public void registerVenta(Venta venta, List<DetalleVenta> lista) throws Exception {
         try {
             this.conect();
-            this.getConnection().setAutoCommit(false);//Para saber cuando hacemos efectivo que el bloque se realice.
+            this.getConexion().setAutoCommit(false);//Para saber cuando hacemos efectivo que el bloque se realice.
 
-            PreparedStatement prepare = this.getConnection().prepareStatement("INSERT INTO venta(fecha, codpersona, monto) values (?,?,?)");
+            PreparedStatement prepare = this.getConexion().prepareStatement("INSERT INTO venta(fecha, codpersona, monto) values (?,?,?)");
             prepare.setDate(1, (Date) venta.getDate());
             prepare.setInt(2, venta.getCodePerson().getCode());
             prepare.setDouble(3, venta.getMonto());
             prepare.executeUpdate();
             prepare.close();
 
-            PreparedStatement preparedStatement = this.getConnection().prepareStatement("SELECT LAST_INSERT_ID() FROM venta limit 1");
-            ResultSet rs;
+            PreparedStatement preparedSt = this.getConexion().prepareStatement("SELECT LAST_INSERT_ID() FROM venta limit 1");
             int codVenta = 0;
-            rs = preparedStatement.executeQuery();
+            ResultSet rs = preparedSt.executeQuery();
             while (rs.next()){
-                codVenta = rs.getInt("1");
+                codVenta = rs.getInt(1);
             }
             rs.close();
 
             for (DetalleVenta det : lista) {
-                PreparedStatement pst = this.getConnection().prepareStatement("INSERT INTO detalleventa(codventa, codproducto, cantidad) values (?,?,?)");
+                PreparedStatement pst = this.getConexion().prepareStatement("INSERT INTO detalleventa(codventa, codproducto, cantidad) values (?,?,?)");
                 prepare.setInt(1, codVenta);
                 prepare.setInt(2, det.getCodeProduct().getCodeProduct());
                 prepare.setDouble(3, det.getQuantity());
@@ -41,11 +40,12 @@ public class VentaDAO extends DAO {
                 pst.close();
             }
 
-            this.getConnection().commit();//Para ejecutar el bloque
+            this.getConexion().commit();//Para ejecutar el bloque
 
         } catch (Exception e) {
-            this.getConnection().rollback();//Por si habido algun error que se ejecute el rollback
+            this.getConexion().rollback();//Por si habido algun error que se ejecute el rollback
             throw e;
+
         } finally {
             this.closed();
         }
